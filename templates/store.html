@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+</head>
+<body>
+    <h1>Productos en la Tienda</h1>
+    <ul>
+        {% for product in products %}
+            <li>
+                <!-- Ajustar el ancho de la imagen al 30% del contenedor -->
+                <img src="{{ product.image }}" alt="{{ product.title }}" style="width: 30%;">
+                <h2>{{ product.title }}</h2>
+                <p>Precio: ${{ product.price }}</p>
+                <p>{{ product.description }}</p>
+                <p>Categoría: {{ product.category }}</p>
+                <p>Rating: {{ product.rating.rate }} ({{ product.rating.count }} votos)</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

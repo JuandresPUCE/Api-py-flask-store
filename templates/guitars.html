@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos de Guitarras</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Productos de Guitarras</h1>
+    <ul>
+        {% for guitar in products %}
+            <li>
+                <h2>{{ guitar.name }}</h2>
+                <p>Fabricante: {{ guitar.maker }}</p>
+                <p>Tipo: {{ guitar.Type }}</p>
+                <p>Precio: ${{ guitar.price }}</p>
+                <img src="{{ guitar.img }}" alt="{{ guitar.name }}">
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

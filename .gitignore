@@ -1,0 +1,19 @@
+# Archivos generados por Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Entorno virtual
+venv/
+
+# Archivos de configuración
+.vscode/
+.idea/
+
+# Archivos de registro
+*.log
+
+# Otros archivos y carpetas generados
+*.pyc
+.DS_Store
