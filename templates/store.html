@@ -11,8 +11,8 @@
     <ul>
         {% for product in products %}
             <li>
-                <!-- Ajustar el ancho de la imagen al 30% del contenedor -->
-                <img src="{{ product.image }}" alt="{{ product.title }}" style="width: 30%;">
+                <!-- Ajustar el ancho de la imagen al 10% del contenedor -->
+                <img src="{{ product.image }}" alt="{{ product.title }}" style="width: 10%;">
                 <h2>{{ product.title }}</h2>
                 <p>Precio: ${{ product.price }}</p>
                 <p>{{ product.description }}</p>

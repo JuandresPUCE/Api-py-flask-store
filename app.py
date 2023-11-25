@@ -1,10 +1,24 @@
 # Importamos las librerías necesarias
 from flask import Flask, jsonify, render_template
 import requests
+from flask_sqlalchemy import SQLAlchemy
 from test_products import products
+from models import db, Product
 
 # Creamos una instancia de la aplicación Flask
 app=Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:admin@localhost/test_python'
+
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
+
+# Crear todas las tablas si no existen
+with app.app_context():
+    db.create_all()
 
 # Definimos la ruta raíz ("/")
 @app.route('/')
@@ -38,18 +52,26 @@ def get_product(product_name):
 
 @app.route('/store')
 def get_store():
-    # Hacemos una solicitud a la API para obtener los productos
     api_url = 'https://fakestoreapi.com/products/'
     response = requests.get(api_url)
-
-    # Verificamos si la solicitud fue exitosa
     if response.status_code == 200:
-        # Si la solicitud fue exitosa, obtenemos los datos de la respuesta en formato JSON
         products = response.json()
-        # Renderizamos la plantilla 'store.html' con los productos obtenidos
+        for product in products:
+            existing_product = Product.query.get(product['id'])
+            if existing_product is None:
+                new_product = Product(
+                    id=product['id'],
+                    title=product['title'],
+                    price=product['price'],
+                    description=product['description'],
+                    category=product['category'],
+                    image=product['image'],
+                    rating=product['rating']['rate']
+                )
+                db.session.add(new_product)
+        db.session.commit()
         return render_template('store.html', products=products)
     else:
-        # Si la solicitud no fue exitosa, devolvemos un mensaje de error
         return 'Error al obtener datos de la API', 500
 
 # Si este script se ejecuta como el principal, iniciamos la aplicación Flask
