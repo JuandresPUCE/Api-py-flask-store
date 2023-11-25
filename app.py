@@ -74,6 +74,20 @@ def get_store():
     else:
         return 'Error al obtener datos de la API', 500
 
+# consulta lo que hay en store_products de la DB de MYSQL
+@app.route('/products_db')
+def get_products_db():
+    # Usa SQLAlchemy para hacer una consulta a la base de datos y obtener todos los productos
+    products = Product.query.all()
+
+    # Para cada producto en la lista de productos, conviértelo a un diccionario
+    # Esto se hace usando una comprensión de lista y el método to_dict() que debe estar definido en tu modelo Product
+    products_list = [product.to_dict() for product in products]
+
+    # Usa la función jsonify de Flask para convertir la lista de diccionarios de productos a JSON
+    # Luego, devuelve este objeto JSON como respuesta a la solicitud HTTP
+    return jsonify(products_list)
+
 # Si este script se ejecuta como el principal, iniciamos la aplicación Flask
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

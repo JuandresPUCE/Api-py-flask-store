@@ -13,3 +13,14 @@ class Product(db.Model):
     category = db.Column(db.String(120), nullable=True)
     image = db.Column(db.String(120), nullable=True)
     rating = db.Column(db.Float, nullable=True)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'price': self.price,
+            'description': self.description,
+            'category': self.category,
+            'image': self.image,
+            'rating': self.rating
+        }
